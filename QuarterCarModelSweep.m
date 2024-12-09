@@ -9,7 +9,7 @@ springStiffnessSweep = [3159.177 5000];
 simout = cell(1,length(springStiffnessSweep));
 
 mdlWks = get_param('Quarter_Car_model','ModelWorkspace');
-% whos(mdlWks) % lists all variables in the workspace
+%whos(mdlWks) % lists all variables in the workspace
 tic
 for i = 1:length(springStiffnessSweep) %front spring stiffness sweep
     assignin(mdlWks, 'k_s', springStiffnessSweep(i))

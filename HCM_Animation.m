@@ -30,12 +30,13 @@ data.phi_s = simout.phi_s.Data; % sprung mass pitch angle clockwise convention (
 data.phi_s = -data.phi_s; % anticlockwise since convention is ****into the page****
 data.sLap = data.sLapFWheel - L_F*cos(data.phi_s); % COM x Position
 data.z_g_COM = simout.z_COMg.Data; % ground height relative to 0 vertically below COM;
-data.z_s = simout.z_s.Data + zCOMRideHeight - data.z_g_COM; % sprung mass height
+data.z_s = simout.z_s.Data + zCOMRideHeight - data.z_g_COM; % sprung mass height above ground
 data.z_Fg = simout.z_Fg.Data; % front ground
 data.z_Rg = simout.z_Rg.Data; % rear ground
 data.z_FW = data.z_s + sin(data.phi_s)*L_F - zAxleRideHeight - (simout.z_Fs.Data - data.z_Fg); % front wheel center z height from ground below Front wheel
 data.z_RW = data.z_s - sin(data.phi_s)*L_R - zAxleRideHeight - (simout.z_Rs.Data - data.z_Rg); % rear wheel center z height from ground below rear wheel
-
+% data.z_FW = simout.z_Fs.Data + rRollingRadius not relative to ground
+% data.z_RW = simout.z_Rs.Data + rRollingRadius
 
 % Plots of Variables
 figure
@@ -62,7 +63,7 @@ hold on
 % rear
 plot(data.sLapFWheel, data.z_RW, 'b')
 %rears
-title('Wheel Centers z Height above ground')
+title('Wheel Centers z Height')
 legend('z_Fs', 'z_Rs');
 xlabel('sLap FWheel (m)')
 ylabel('z (m)')
@@ -89,7 +90,7 @@ legend('Ground (z_Fg)');
 xlabel('sLap FWheel (m)')
 ylabel('z (m)')
 grid minor
-ylim([min(data.z_FW)-0.1,max(data.z_s)+0.1])
+ylim([min(data.z_Fg)-0.1,max(data.z_s)+0.1])
 
 subplot(2,1,1)
 hold on
